@@ -32,6 +32,7 @@ export function handleCreateVault(event: VaultCreated): void {
 
   log.info("handleCreateVault ! 2", []);
 
+
   const size = event.params.tokens.length;
   const tmp = new Array<Bytes>(size); // https://medium.com/protofire-blog/subgraph-development-part-2-handling-arrays-and-identifying-entities-30d63d4b1dc6
   for (let x = 0; x < size; x++) tmp[x] = event.params.tokens[x];
