@@ -22,7 +22,7 @@ export function handleCreateVault(event: VaultCreated): void {
   factory.vaultCount = factory.vaultCount + 1;
   factory.save();
 
-  log.info("handleCreateVault ! 1", []);
+  // log.info("handleCreateVault ! 1", []);
 
   let vault = new Vault(event.params.vault.toHexString()) as Vault;
   vault.factory = factory.id;
@@ -30,8 +30,7 @@ export function handleCreateVault(event: VaultCreated): void {
   vault.creator = event.transaction.from;
   vault.share = event.params.share;
 
-  log.info("handleCreateVault ! 2", []);
-
+  // log.info("handleCreateVault ! 2", []);
 
   const size = event.params.tokens.length;
   const tmp = new Array<Bytes>(size); // https://medium.com/protofire-blog/subgraph-development-part-2-handling-arrays-and-identifying-entities-30d63d4b1dc6
@@ -47,15 +46,15 @@ export function handleCreateVault(event: VaultCreated): void {
   vault.rebalancesCount = 0;
   vault.redemptionsCount = 0;
 
-  log.info("handleCreateVault ! 3", []);
+  // log.info("handleCreateVault ! 3", []);
 
   vault.save();
 
-  log.info("handleCreateVault ! 4", []);
+  // log.info("handleCreateVault ! 4", []);
 
   VaultTemplate.create(event.params.vault);
 
-  log.info("handleCreateVault ! 5", []);
+  // log.info("handleCreateVault ! 5", []);
 
   factory.save();
 }
@@ -111,9 +110,9 @@ export function handleNewBlock(block: ethereum.Block): void {
   const factory = Factory.load(FACTORY_ADDRESS);
   if (factory === null) return;
   const factoryContract = FactoryContract.bind(Address.fromString(FACTORY_ADDRESS));
-  const vaults = factoryContract.getAllVaults();
-  for (let x = 0; x < vaults.length; x++) {
-    buildVaultSnapshot(factory, vaults[x], block, false);
+  const factoryState = factoryContract.getFactoryState();
+  for (let x = 0; x < factoryState.value0.length; x++) {
+    buildVaultSnapshot(factory, factoryState.value0[x], block, false);
   }
 }
 
