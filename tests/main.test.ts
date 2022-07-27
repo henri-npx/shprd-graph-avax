@@ -26,7 +26,7 @@ import { FACTORY_ADDRESS } from "../src/mappings/helpers";
 
 
 
-/// to perform tests 
+/// to perform tests - command : graph test
 // need to mock transaction with the right contract address sending the event
 // need to mock an event with the transaction
 // need to mock the functions to call when handling an event
