@@ -24,7 +24,6 @@ import { FACTORY_ADDRESS } from "./helpers";
 export function handleDeposit(event: DepositEvent): void {
 	const factory = Factory.load(FACTORY_ADDRESS);
 	if (factory === null) return;
-
 	let vault = Vault.load(event.address.toHexString());
 	if (vault == null) return;
 	const deposit = new Deposit(event.transaction.hash.toHexString()) as Deposit;
@@ -34,9 +33,11 @@ export function handleDeposit(event: DepositEvent): void {
 	deposit.baseTokenAmountIn = event.params.baseTokenAmountIn;
 	deposit.timestamp = event.block.timestamp;
 	// Storage Reads
+	
 	const vaultContract = VaultContract.bind(event.address);
 	const vaultStatusAfter = vaultContract.getVaultStatus();
 	deposit.sharePriceAfter = vaultStatusAfter.value2;
+
 	// Save
 	deposit.save();
 	vault.depositsCount = vault.depositsCount + 1;

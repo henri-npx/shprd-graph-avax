@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 description: Shepherd is a decentralised, community-owned asset management platform, for this graph, on Avalanche
 schema:
     file: ./schema.graphql
@@ -14,7 +14,7 @@ dataSources:
           # Factory Creation : https://snowtrace.io/tx/0x0e2c73ca2e435820f3d740adb7ba501e3e0241a86e481a20817c113a1658d5e9 : 16587219
       mapping:
           kind: ethereum/events
-          apiVersion: 0.0.5
+          apiVersion: 0.0.6
           language: wasm/assemblyscript
           file: ./src/mappings/factory.ts
           entities:
@@ -39,7 +39,7 @@ templates:
           abi: Vault
       mapping:
           kind: ethereum/events
-          apiVersion: 0.0.5
+          apiVersion: 0.0.6
           language: wasm/assemblyscript
           file: ./src/mappings/vault.ts
           entities:
